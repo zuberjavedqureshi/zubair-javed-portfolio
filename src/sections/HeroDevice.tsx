@@ -6,15 +6,7 @@ import { useEffect, useState } from "react";
 import { featuredProject } from "@/data/projects";
 import { cn } from "@/lib/cn";
 
-const shots = featuredProject.screenshots.filter((s) => s.caption !== "Generated prompt");
-
-/** Facts pulled from the Text Toolkit codebase; each one is verifiable. */
-const callouts = [
-  { k: "Status", v: "Live on Google Play", side: "left", top: "14%" },
-  { k: "State", v: "flutter_riverpod", side: "left", top: "58%" },
-  { k: "Build", v: "v0.3.0+16", side: "right", top: "26%" },
-  { k: "Tests", v: "38 test files", side: "right", top: "70%" },
-] as const;
+const shots = featuredProject.screenshots;
 
 export function HeroDevice() {
   const [index, setIndex] = useState(0);
@@ -70,31 +62,10 @@ export function HeroDevice() {
           </div>
         </div>
 
-        {/* Annotation layer: desktop only */}
-        {callouts.map((c, i) => (
-          <m.div
-            key={c.k}
-            aria-hidden="true"
-            className={cn(
-              "pointer-events-none absolute hidden items-center gap-3 xl:flex",
-              c.side === "left" ? "right-full flex-row-reverse pr-0" : "left-full",
-            )}
-            style={{ top: c.top }}
-            initial={{ opacity: 0, x: c.side === "left" ? 10 : -10 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.9 + i * 0.12, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <span className="h-px w-10 bg-line-strong" />
-            <span className={cn("whitespace-nowrap font-mono text-[0.6875rem] leading-tight", c.side === "left" && "text-right")}>
-              <span className="block uppercase tracking-[0.08em] text-fg-subtle">{c.k}</span>
-              <span className="block text-fg">{c.v}</span>
-            </span>
-          </m.div>
-        ))}
       </div>
 
       <figcaption className="mt-6 flex flex-col items-center gap-4">
-        <div className="flex items-center gap-1.5" role="group" aria-label="Choose a Text Toolkit screen">
+        <div className="flex items-center gap-1.5" role="group" aria-label="Choose an app screen">
           {shots.map((s, i) => (
             <button
               key={s.src}
@@ -114,17 +85,8 @@ export function HeroDevice() {
           ))}
         </div>
         <p className="font-mono text-[0.6875rem] uppercase tracking-[0.08em] text-fg-subtle">
-          Text Toolkit · <span className="text-fg-muted">{shot.caption}</span> · real app screen
+          Real app screen · <span className="text-fg-muted">{shot.caption}</span>
         </p>
-        {/* Facts shown inline below xl, where there is no room for annotations */}
-        <dl className="grid w-full max-w-sm grid-cols-2 gap-px overflow-hidden rounded-xl border border-line bg-line xl:hidden">
-          {callouts.map((c) => (
-            <div key={c.k} className="bg-bg px-3 py-2.5">
-              <dt className="font-mono text-[0.625rem] uppercase tracking-[0.08em] text-fg-subtle">{c.k}</dt>
-              <dd className="font-mono text-xs text-fg">{c.v}</dd>
-            </div>
-          ))}
-        </dl>
       </figcaption>
     </figure>
   );

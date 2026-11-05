@@ -11,32 +11,19 @@ export function ProjectTitle({ project, as: Tag = "h3", size = "xl" }: { project
           alt=""
           width={64}
           height={64}
-          className={size === "xl" ? "size-14 rounded-[1rem] ring-1 ring-line sm:size-16" : "size-12 rounded-[0.85rem] ring-1 ring-line"}
+          className={size === "xl" ? "size-12 rounded-[0.85rem] ring-1 ring-line sm:size-14 sm:rounded-[1rem]" : "size-11 rounded-[0.8rem] ring-1 ring-line sm:size-12"}
         />
       ) : null}
       <Tag
         className={
           size === "xl"
-            ? "font-display text-5xl leading-none tracking-[-0.03em] sm:text-7xl lg:text-8xl"
-            : "font-display text-4xl leading-none tracking-[-0.02em] sm:text-6xl"
+            ? "font-display text-5xl leading-none tracking-[-0.03em] sm:text-6xl lg:text-7xl"
+            : "font-display text-[2.6rem] leading-none tracking-[-0.02em] sm:text-6xl"
         }
       >
         {project.name}
       </Tag>
     </div>
-  );
-}
-
-export function SpecList({ specs }: { specs: Project["specs"] }) {
-  return (
-    <dl className="divide-y divide-line border-y border-line font-mono text-[0.8125rem]">
-      {specs.map((s) => (
-        <div key={s.label} className="flex items-baseline justify-between gap-6 py-2.5">
-          <dt className="shrink-0 text-fg-subtle">{s.label}</dt>
-          <dd className="text-right text-fg [overflow-wrap:anywhere]">{s.value}</dd>
-        </div>
-      ))}
-    </dl>
   );
 }
 

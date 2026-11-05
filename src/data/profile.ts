@@ -34,12 +34,11 @@ export const profile = {
   ],
 
   intro:
-    "Flutter developer with about four years of building for Android and iOS. By day I build and maintain courier management apps at Busisoft. Independently, I design, ship and maintain my own apps on Google Play. Now expanding into AI-powered mobile products.",
+    "Flutter developer with about four years of building for Android and iOS. I build courier management apps at Xpresion Next and ship my own apps on Google Play.",
 } as const;
 
 export const site = {
   url: (process.env.NEXT_PUBLIC_SITE_URL ?? "https://zubair-javed-portfolio.vercel.app").replace(/\/$/, ""),
-  repo: "https://github.com/zuberjavedqureshi/zubair-javed-portfolio",
   title: "Zubair Javed Qureshi: Flutter & Mobile Application Developer",
   description:
     "Portfolio of Zubair Javed Qureshi, a Mumbai-based Flutter developer building and shipping Android and iOS apps, including Text Toolkit on Google Play. Expanding into AI-powered mobile applications.",

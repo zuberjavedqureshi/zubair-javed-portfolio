@@ -8,13 +8,12 @@ export type ExperienceItem = {
   current?: boolean;
   summary: string;
   points: string[];
-  tags: string[];
 };
 
 export const experience: ExperienceItem[] = [
   {
     role: "Flutter Developer",
-    org: "Busisoft",
+    org: "Xpresion Next",
     period: "May 2025 — Present",
     start: "2025-05",
     current: true,
@@ -25,7 +24,6 @@ export const experience: ExperienceItem[] = [
       "Implement new features and fix bugs found in testing and production",
       "Prepare application releases and maintain shipped versions",
     ],
-    tags: ["Flutter", "Dart", "REST APIs", "JSON", "Debugging", "Releases"],
   },
   {
     role: "App Developer",
@@ -38,9 +36,8 @@ export const experience: ExperienceItem[] = [
     points: [
       "Published Text Toolkit on Google Play, with in-app purchases and AdMob",
       "Took Save Karlo, a local-first link manager, through to closed testing",
-      "Own the full lifecycle: product scope, UI, architecture, testing, store listing and updates",
+      "Own the full lifecycle: scope, UI, architecture, testing and store releases",
     ],
-    tags: ["Product thinking", "Play Console", "Monetisation", "Testing"],
   },
 ];
 

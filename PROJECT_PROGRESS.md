@@ -1,8 +1,35 @@
 # Project Progress
 
-_Last updated: 2026-11-03_
+_Last updated: 2026-11-06_
 
-## Status: v1.0 complete locally. GitHub and Vercel publishing need your login (see the end of this file).
+## Status: v1.1 (refinement) complete. The site is live at https://zubair-javed-portfolio.vercel.app and deploys from `main` on GitHub through Vercel.
+
+## v1.1 — Content reduction, skills showcase and contact form (2026-11-06)
+
+**Goal:** a calmer, more balanced personal portfolio with less text, more space, an icon-based skills showcase and a working contact form.
+
+### Changes
+- **Employer renamed** from Busisoft to **Xpresion Next** in Experience, the About copy, the hero status strip, the intro (also used in the JSON-LD description) and JSON-LD `worksFor`. Dates and responsibilities are unchanged.
+- **Text Toolkit toned down.** Removed the spec block (platform, package, build, codebase, role), the "How it's built" engineering grid and the "Build log · selected commits" panel, along with their data and the `SpecList` component. The title and icon are smaller, there are 4 highlights, the stack is Flutter, Dart and Riverpod, and the Play Store button, privacy link and 5 real screenshots remain. Removed the hero device's build and test-count call-outs.
+- **Save Karlo simplified.** Removed the platform, storage and history specs and the engineering notes. It now has a one-sentence local-first summary, 4 features, a Flutter, Dart, Riverpod and SQLite stack, 3 real screenshots and an accurate **Closed testing** badge.
+- **Workbench projects** (Super Secret, Tasbeeh) are now compact one-line cards.
+- **Skills section redesigned** as a visual technology showcase in three groups: Mobile Development, Programming & Web, and Tools & Platforms. It uses official brand icons from Simple Icons (CC0) and Devicon (VS Code, MIT), embedded as inline SVG in `src/components/brand-icons.ts` with no runtime dependency. Lucide glyphs are used for Riverpod and REST APIs, which have no official mark. Flutter and Dart get large tiles in brand colour. Other tiles are monochrome and take on their brand colour on hover. There are no percentages or proficiency claims.
+- **Contact form added**, using Formspree's free tier through `NEXT_PUBLIC_FORMSPREE_ENDPOINT`. It has name, email, subject and message fields, all required, with labels, inline validation, email format checks, character limits and a message counter. It includes a loading state, success and error states, a LinkedIn fallback, a `_gotcha` honeypot and accessible error wiring (`aria-invalid`, `aria-describedby`, focus on the first invalid field). No content is logged. While the variable is unset, the form shows a notice and submission is disabled; it never fakes success.
+- **Footer replaced.** It shows name, tagline ("Building useful things, one release at a time."), copyright year and back-to-top. The "Designed & built… View source" line and the repo link are removed.
+- **Copy and spacing.** The About section went from 4 paragraphs to 2, the hero intro is shorter, the Projects lede is one line, and the redundant tag chips were removed from Experience. Section padding increased from 96/128px to 112/144px, with more room between project blocks.
+
+### QA (v1.1)
+| Check | Result |
+|-------|--------|
+| `tsc --noEmit` | ✅ 0 errors |
+| `eslint` | ✅ 0 errors, 0 warnings |
+| `next build` | ✅ static prerender of `/` |
+| Visual QA at 390, 820, 1366 and 1680 px, dark and light | ✅ headless Chrome screenshots reviewed |
+| Horizontal overflow, broken images, dead anchors, console errors, failed requests | ✅ none |
+| Removed-content scan (Busisoft, Build log, package id, build number, test counts, "Designed & built", "View source") | ✅ none in rendered text |
+| Contact form against a local mock endpoint: empty submit, bad email, live re-validation, loading, success, reset, server error (values kept), honeypot (nothing sent) | ✅ all pass |
+| Desktop nav, mobile menu and theme toggle | ✅ |
+
 
 ### Phase 0: Discovery and fact verification ✅
 - Inspected the local workspace: `text_toolkit`, `save_karlo`, `super_secret`, `tasbeeh`. None of these were modified.
@@ -56,7 +83,7 @@ Fixed during QA:
 - Generated a valid favicon.ico.
 - Hero headline and intro no longer start transparent, so they paint immediately.
 
-### Phase 5: Repository and deployment ⏳ (needs you)
+### Phase 5: Repository and deployment ✅ (completed after v1.0; original notes kept below)
 - Git is initialised locally with the initial commit on `main`.
 - The `gh` CLI is **not installed** and there is no GitHub authentication on this machine, so the remote repository could not be created.
 - The Vercel CLI is not installed or logged in, so nothing was deployed.
@@ -73,7 +100,7 @@ npx vercel && npx vercel --prod
 ```
 
 ### Open items for you
-1. Confirm the employer's exact legal name. The site says "Busisoft"; the brief said "Busisoft LL." (LLC?). Edit `src/data/experience.ts` and the JSON-LD in `src/app/layout.tsx`.
-2. Optional: add a public email (`profile.email`) and a résumé PDF (`profile.resumeUrl`).
-3. Optional: add real screenshots for Super Secret and Tasbeeh once they're ready.
-4. After deploying, set `NEXT_PUBLIC_SITE_URL` if the domain differs from `zubair-javed-portfolio.vercel.app`.
+1. **Set up the contact form.** Create a free Formspree form, add `NEXT_PUBLIC_FORMSPREE_ENDPOINT` in Vercel, then redeploy. See the README section "Contact form setup".
+2. Optional: review the Skills list in `src/data/skills.ts`. Figma, Firebase, Postman, Python and the web technologies were included as you requested; remove anything you would rather not list.
+3. Optional: add a public email (`profile.email`) and a résumé PDF (`profile.resumeUrl`).
+4. Optional: add real screenshots for Super Secret and Tasbeeh once they're ready.

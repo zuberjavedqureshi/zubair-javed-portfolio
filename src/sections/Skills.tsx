@@ -1,70 +1,109 @@
+import { Network, Waves } from "lucide-react";
+import type { CSSProperties } from "react";
+import { brandIcons } from "@/components/brand-icons";
 import { Reveal } from "@/components/Reveal";
 import { SectionHeader } from "@/components/SectionHeader";
-import { evidenceLabels, skillGroups } from "@/data/skills";
+import { techGroups, type Tech } from "@/data/skills";
 import { cn } from "@/lib/cn";
+
+/** Brand colours too dark to read on the dark theme fall back to the foreground colour. */
+const inkBrands = new Set(["github", "json", "sqlite"]);
+
+/** Official secondary brand tones where the primary one lacks contrast on one theme (light, dark). */
+const themedBrands: Record<string, string> = {
+  flutter: "light-dark(#02569B, #47C5FB)",
+  dart: "light-dark(#0175C2, #29B6F6)",
+  javascript: "light-dark(#B39B00, #F7DF1E)",
+};
+
+function brandColor(icon: Tech["icon"]) {
+  if ("lucide" in icon) return "var(--accent)";
+  if (inkBrands.has(icon.brand)) return "var(--fg)";
+  return themedBrands[icon.brand] ?? brandIcons[icon.brand].hex;
+}
+
+function TechGlyph({ icon, className }: { icon: Tech["icon"]; className?: string }) {
+  if ("lucide" in icon) {
+    const Glyph = icon.lucide === "riverpod" ? Waves : Network;
+    return <Glyph className={className} strokeWidth={1.75} aria-hidden="true" />;
+  }
+  const b = brandIcons[icon.brand];
+  return (
+    <svg viewBox={b.viewBox} fill="currentColor" className={className} aria-hidden="true">
+      <path d={b.path} fillRule={"evenOdd" in b ? "evenodd" : undefined} />
+    </svg>
+  );
+}
+
+function TechTile({ tech }: { tech: Tech }) {
+  const style = { "--brand": brandColor(tech.icon) } as CSSProperties;
+
+  if (tech.primary) {
+    return (
+      <li
+        style={style}
+        className="group relative flex min-h-36 flex-col justify-between overflow-hidden rounded-3xl border border-line bg-bg-elev p-6 transition-[border-color,transform] duration-500 ease-(--ease-out-expo) hover:-translate-y-1 hover:border-line-strong sm:col-span-2 sm:row-span-2 sm:min-h-0 sm:p-8"
+      >
+        <span
+          aria-hidden="true"
+          className="absolute -right-10 -top-10 size-44 rounded-full bg-(--brand) opacity-[0.08] blur-3xl transition-opacity duration-500 group-hover:opacity-20"
+        />
+        <TechGlyph icon={tech.icon} className="relative size-10 text-(--brand) sm:size-14" />
+        <span className="relative mt-8">
+          <span className="block font-display text-[2rem] leading-none tracking-[-0.02em] sm:text-5xl">{tech.name}</span>
+          <span className="eyebrow mt-3 block">Core stack</span>
+        </span>
+      </li>
+    );
+  }
+
+  return (
+    <li
+      style={style}
+      className="group flex items-center gap-3.5 rounded-2xl border border-line px-4 py-4 transition-[border-color,background-color,transform] duration-500 ease-(--ease-out-expo) hover:-translate-y-0.5 hover:border-line-strong hover:bg-bg-elev sm:flex-col sm:items-start sm:justify-between sm:gap-6 sm:p-5"
+    >
+      <TechGlyph
+        icon={tech.icon}
+        className="size-6 shrink-0 text-fg-muted transition-colors duration-300 group-hover:text-(--brand) sm:size-7"
+      />
+      <span className="text-[0.9375rem] leading-tight text-fg">{tech.name}</span>
+    </li>
+  );
+}
 
 export function Skills() {
   return (
-    <section aria-labelledby="skills-title" id="skills" className="shell scroll-mt-20 py-24 sm:py-32">
+    <section aria-labelledby="skills-title" id="skills" className="shell scroll-mt-20 py-28 sm:py-36">
       <SectionHeader
         id="skills-title"
         index="03"
-        label="Capabilities"
+        label="Skills"
         title={
           <>
-            A toolkit backed by <em className="text-fg-muted">evidence,</em> not percentages.
+            The tools I <em className="text-fg-muted">build with.</em>
           </>
         }
-        lede="Each skill is tagged with where I’ve actually used it: at work or in a specific project."
       />
 
-      <div className="mt-8 flex flex-wrap gap-x-5 gap-y-2 font-mono text-[0.6875rem] text-fg-subtle md:ml-[25%] md:pl-2">
-        {Object.entries(evidenceLabels).map(([k, v]) => (
-          <span key={k}>
-            <span className="text-fg-muted">{k}</span> = {v}
-          </span>
-        ))}
-      </div>
-
-      <div className="mt-12 grid gap-px overflow-hidden rounded-3xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
-        {skillGroups.map((g, i) => (
-          <Reveal
-            key={g.title}
-            delay={(i % 3) * 0.06}
-            className={cn("flex flex-col p-6 sm:p-8", g.exploring ? "bg-accent-soft [background-color:color-mix(in_srgb,var(--accent)_6%,var(--bg))]" : "bg-bg")}
-          >
-            <div className="flex items-start justify-between gap-4">
-              <p className="font-mono text-[0.6875rem] text-accent">{String(i + 1).padStart(2, "0")}</p>
-              {g.exploring ? (
-                <span className="rounded-full border border-accent/30 px-2 py-0.5 font-mono text-[0.625rem] uppercase tracking-[0.08em] text-accent">
-                  Exploring
-                </span>
-              ) : null}
-            </div>
-            <h3 className="mt-4 font-display text-[1.9rem] leading-tight tracking-[-0.01em]">{g.title}</h3>
-            <p className="mt-2 text-sm leading-relaxed text-fg-muted">{g.blurb}</p>
-            <ul className="mt-6 divide-y divide-line border-t border-line">
-              {g.skills.map((s) => (
-                <li key={s.name} className="flex items-baseline justify-between gap-4 py-2.5">
-                  <span className="text-[0.9375rem] text-fg">{s.name}</span>
-                  {s.evidence?.length ? (
-                    <span
-                      className="shrink-0 font-mono text-[0.625rem] tracking-[0.04em] text-fg-subtle"
-                      title={`Used in: ${s.evidence.map((e) => evidenceLabels[e]).join(", ")}`}
-                    >
-                      <span className="sr-only">Used in: </span>
-                      {s.evidence.join(" · ")}
-                    </span>
-                  ) : (
-                    <span className="shrink-0 font-mono text-[0.625rem] text-fg-subtle/70">
-                      {g.exploring ? "learning" : "daily tool"}
-                    </span>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </Reveal>
-        ))}
+      <div className="mt-16 grid gap-14 sm:mt-20 sm:gap-16">
+        {techGroups.map((group, gi) => {
+          const hasPrimary = group.items.some((t) => t.primary);
+          return (
+            <Reveal key={group.title} delay={gi * 0.04} className="grid gap-6 md:grid-cols-12 md:gap-8">
+              <h3 className="eyebrow md:col-span-3 md:pt-2">{group.title}</h3>
+              <ul
+                className={cn(
+                  "grid grid-cols-2 gap-3 md:col-span-9",
+                  hasPrimary ? "sm:grid-cols-4 lg:grid-flow-dense lg:grid-cols-6" : "sm:grid-cols-3 lg:grid-cols-6",
+                )}
+              >
+                {group.items.map((tech) => (
+                  <TechTile key={tech.name} tech={tech} />
+                ))}
+              </ul>
+            </Reveal>
+          );
+        })}
       </div>
     </section>
   );

@@ -67,12 +67,12 @@ export function Hero() {
       </div>
 
       {/* Status strip */}
-      <div className="shell mt-16 sm:mt-20 lg:mt-24">
+      <div className="shell mt-20 sm:mt-24 lg:mt-28">
         <dl className="grid grid-cols-2 border-y border-line lg:grid-cols-4">
           {[
-            { k: "Currently", v: "Flutter Developer, Busisoft" },
+            { k: "Currently", v: "Flutter Developer, Xpresion Next" },
             { k: "Based in", v: <>Mumbai, IN · <LocalTime timeZone={profile.timeZone} label={profile.timeZoneLabel} /></> },
-            { k: "Shipping", v: "Text Toolkit on Google Play" },
+            { k: "On Google Play", v: "1 app live · 1 in testing" },
             { k: "Next", v: "Flutter + AI-powered apps" },
           ].map((item, i) => (
             <div

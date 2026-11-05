@@ -5,7 +5,7 @@ import { education, experience } from "@/data/experience";
 
 export function Experience() {
   return (
-    <section aria-labelledby="experience-title" id="experience" className="shell scroll-mt-20 py-24 sm:py-32">
+    <section aria-labelledby="experience-title" id="experience" className="shell scroll-mt-20 py-28 sm:py-36">
       <SectionHeader
         id="experience-title"
         index="04"
@@ -17,9 +17,9 @@ export function Experience() {
         }
       />
 
-      <ol className="mt-16">
+      <ol className="mt-16 sm:mt-20">
         {experience.map((job, i) => (
-          <Reveal as="li" key={job.role + job.org} delay={i * 0.05} className="group relative grid gap-6 border-b border-line py-10 first:border-t md:grid-cols-12 md:gap-8">
+          <Reveal as="li" key={job.role + job.org} delay={i * 0.05} className="group relative grid gap-6 border-b border-line py-12 first:border-t sm:py-14 md:grid-cols-12 md:gap-8">
             <div className="md:col-span-3">
               <p className="font-mono text-[0.8125rem] text-fg-muted">
                 <time dateTime={job.start}>{job.period}</time>
@@ -36,17 +36,10 @@ export function Experience() {
                 <span className="italic text-accent">{job.org}</span>
               </h3>
               <p className="mt-3 text-lg text-fg-muted">{job.summary}</p>
-              <ul className="mt-6 grid gap-x-8 gap-y-3 sm:grid-cols-2">
+              <ul className="mt-8 grid gap-x-10 gap-y-3 sm:grid-cols-2">
                 {job.points.map((p) => (
                   <li key={p} className="relative pl-5 text-[0.9375rem] leading-relaxed text-fg-muted before:absolute before:left-0 before:top-[0.7em] before:h-px before:w-2.5 before:bg-accent">
                     {p}
-                  </li>
-                ))}
-              </ul>
-              <ul className="mt-6 flex flex-wrap gap-1.5" aria-label="Skills used">
-                {job.tags.map((t) => (
-                  <li key={t} className="rounded-full bg-neutral-soft px-2.5 py-1 font-mono text-[0.6875rem] text-fg-muted">
-                    {t}
                   </li>
                 ))}
               </ul>
@@ -55,7 +48,7 @@ export function Experience() {
         ))}
       </ol>
 
-      <Reveal className="mt-16 grid gap-6 md:grid-cols-12 md:gap-8">
+      <Reveal className="mt-20 grid gap-6 md:grid-cols-12 md:gap-8">
         <h3 className="eyebrow md:col-span-3">Education</h3>
         <div className="flex items-start gap-5 rounded-2xl border border-line bg-bg-elev p-6 sm:p-7 md:col-span-9 lg:col-span-8">
           <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-accent-soft text-accent">

@@ -20,6 +20,7 @@
   --accent-soft: rgb(95 200 184 / 0.1);
   --warn: #e9bb62;
   --warn-soft: rgb(233 187 98 / 0.1);
+  --danger: #f0907f;
   --neutral-soft: rgb(236 234 228 / 0.06);
   --grain-opacity: 0.05;
   --device-bezel: #1d2120;
@@ -41,6 +42,7 @@
   --accent-soft: rgb(15 118 110 / 0.09);
   --warn: #8f5b00;
   --warn-soft: rgb(176 112 0 / 0.1);
+  --danger: #b3261e;
   --neutral-soft: rgb(18 20 19 / 0.05);
   --grain-opacity: 0.035;
   --device-bezel: #161918;
@@ -61,6 +63,7 @@
   --color-accent-soft: var(--accent-soft);
   --color-warn: var(--warn);
   --color-warn-soft: var(--warn-soft);
+  --color-danger: var(--danger);
   --color-neutral-soft: var(--neutral-soft);
 
   --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;

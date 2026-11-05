@@ -14,8 +14,10 @@ This is the personal portfolio of **Zubair Javed Qureshi**, a Flutter and mobile
 
 - **Editorial dark design with a full light theme.** Typography is Instrument Serif with Geist and Geist Mono. The accent is Text Toolkit's brand teal.
 - **Real evidence only.** Every app screenshot is a genuine capture, every statistic comes from the actual codebases, and every project carries an honest status label (*Live*, *Closed testing*, *In development*).
-- **Annotated hero device.** The hero cycles through real Text Toolkit screens, with call-outs that state verifiable facts.
-- **Mostly static.** The page is prerendered, so most of it ships no client JavaScript. Client components are limited to the header, theme toggle, hero device, screenshot rails, local time and scroll reveals.
+- **Hero device.** The hero cycles through real app screens.
+- **Skills showcase.** Official brand icons (Simple Icons, Devicon) embedded as inline SVG, with Flutter and Dart shown as the core stack. No proficiency percentages.
+- **Working contact form.** Posts to Formspree (free tier), with validation, a honeypot, and loading, success and error states.
+- **Mostly static.** The page is prerendered, so most of it ships no client JavaScript. Client components are limited to the header, theme toggle, hero device, screenshot rails, contact form, local time and scroll reveals.
 - **Accessible.** It uses semantic landmarks, a skip link, visible focus, keyboard-operable galleries and menu, and honours `prefers-reduced-motion`.
 - **SEO.** Metadata API, canonical URL, Open Graph and Twitter cards, a generated OG image, JSON-LD (`Person`, `MobileApplication`, `WebSite`), `sitemap.xml`, `robots.txt` and a web manifest.
 
@@ -63,14 +65,14 @@ All copy and data live in `src/data/`:
 | File | What it controls |
 |------|------------------|
 | `profile.ts` | Name, intro, links, availability, **`email`** and **`resumeUrl`** (both `null` by default, so their UI is hidden) |
-| `projects.ts` | Projects, status badges, specs, features, engineering notes, screenshots, build log |
-| `skills.ts` | Skill groups, with "evidence" tags linking each skill to where it was used |
+| `projects.ts` | Projects: status badges, short summary, key features, stack, screenshots, links |
+| `skills.ts` | Technology groups for the icon showcase (`primary: true` marks the core stack) |
 | `experience.ts` | Roles and education |
 
 **To add a project**, append an object to `projects` in `src/data/projects.ts`:
 
 - Put screenshots in `public/projects/<slug>/` and list them in `screenshots`. A project with screenshots gets a full spread.
-- If `screenshots` is empty, the project appears under "On the workbench" with a clearly labelled typographic placeholder.
+- If `screenshots` is empty, the project appears under "On the workbench" as a compact card without imagery.
 - Set `featured: true` on exactly one project to make it the flagship spread.
 
 **To add a résumé**, put the PDF in `public/` and set `resumeUrl: "/your-file.pdf"` in `profile.ts`. A Résumé button then appears in the hero.
@@ -79,11 +81,22 @@ All copy and data live in `src/data/`:
 
 ## Deployment (Vercel)
 
-No environment variables are required. One is optional:
+See [.env.example](.env.example).
 
 | Variable | Purpose | Default |
 |----------|---------|---------|
+| `NEXT_PUBLIC_FORMSPREE_ENDPOINT` | Contact form endpoint, e.g. `https://formspree.io/f/abcdwxyz` | unset: the form shows a notice and submission is disabled |
 | `NEXT_PUBLIC_SITE_URL` | Absolute URL for canonical, OG, sitemap and robots | `https://zubair-javed-portfolio.vercel.app` |
+
+### Contact form setup (Formspree, free)
+
+1. Sign up at [formspree.io](https://formspree.io) and create a new form. Submissions are emailed to the address on your Formspree account.
+2. Copy the form endpoint (`https://formspree.io/f/<id>`).
+3. In Vercel, open **Settings → Environment Variables**, add `NEXT_PUBLIC_FORMSPREE_ENDPOINT` with that URL for Production (and Preview if you like), then redeploy. `NEXT_PUBLIC_` values are inlined at build time, so a redeploy is required.
+4. Locally, put the same line in `.env.local` (git-ignored).
+5. Send a test message. Formspree asks you to confirm the first submission by email.
+
+The endpoint id is public by design, since it's what the browser posts to. It isn't a secret. The form sends name, email, subject and message. A hidden `_gotcha` honeypot catches bots, which get a silent fake success and nothing is sent.
 
 1. Push this repository to GitHub.
 2. In Vercel, choose **Add New → Project**, import the repo, keep the detected Next.js defaults, and deploy.

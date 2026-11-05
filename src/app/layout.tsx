@@ -75,7 +75,7 @@ const jsonLd = {
       description: profile.intro,
       url: site.url,
       address: { "@type": "PostalAddress", addressLocality: "Mumbai", addressCountry: "IN" },
-      worksFor: { "@type": "Organization", name: "Busisoft" },
+      worksFor: { "@type": "Organization", name: "Xpresion Next" },
       alumniOf: {
         "@type": "CollegeOrUniversity",
         name: "RD National College, University of Mumbai",
