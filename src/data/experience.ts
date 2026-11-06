@@ -26,15 +26,15 @@ export const experience: ExperienceItem[] = [
     ],
   },
   {
-    role: "App Developer",
-    org: "Independent",
+    role: "Flutter App Developer",
+    org: "Self-employed",
     connector: "·",
-    period: "2026 — Present",
-    start: "2026-04",
+    period: "2022 — Present",
+    start: "2022",
     current: true,
-    summary: "Designing, building, publishing and maintaining my own Flutter apps.",
+    summary: "Building Flutter apps independently since 2022, from learning projects to published apps.",
     points: [
-      "Published Text Toolkit on Google Play, with in-app purchases and AdMob",
+      "Published Text Toolkit on Google Play in 2026, with in-app purchases and AdMob",
       "Took Save Karlo, a local-first link manager, through to closed testing",
       "Own the full lifecycle: scope, UI, architecture, testing and store releases",
     ],
@@ -42,7 +42,7 @@ export const experience: ExperienceItem[] = [
 ];
 
 export const education = {
-  degree: "Master’s in Computer Science",
+  degree: "M.Sc. Computer Science",
   institution: "RD National College, Bandra West",
   university: "University of Mumbai",
   completed: "September 2025",

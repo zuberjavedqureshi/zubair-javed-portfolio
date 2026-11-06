@@ -67,7 +67,7 @@ export default async function Image() {
         </div>
 
         <div style={{ display: "flex", justifyContent: "space-between", fontSize: 28, color: muted }}>
-          <span>Flutter · Dart · Riverpod · Android · iOS</span>
+          <span>Flutter · Dart · Riverpod · Android · Cross-platform</span>
           <span style={{ color: accent }}>Text Toolkit, live on Google Play</span>
         </div>
       </div>
